@@ -5,9 +5,8 @@ extern crate midir;
 //#[cfg(target_os = "macos")]
 //use std::time::Duration;
 
-/*use keybd_event::KeyboardKey::{KeySPACE, KeyBACKSPACE};
+use keybd_event::KeyboardKey::{KeySPACE, KeyBACKSPACE};
 use keybd_event::KeyBondingInstance;
-*/
 
 use std::io::{stdin, stdout, Write};
 use std::error::Error;
@@ -38,12 +37,6 @@ fn main() {
         Ok(_) => (),
         Err(err) => println!("Error: {}", err)
     }
-    /*let mut kb = KeyBondingInstance::new().unwrap();
-    #[cfg(target_os = "macos")]
-    sleep(Duration::from_secs(1));
-    kb.has_shift(true);
-    kb.add_keys(&[KeySPACE]);
-    kb.launching();*/
 }
 fn run() -> Result<(), Box<dyn Error>> {
     let mut input = String::new();
@@ -83,9 +76,19 @@ fn run() -> Result<(), Box<dyn Error>> {
         match &message {
             &[176,16,1] => {
                 println!("next");
+                let mut kb = KeyBondingInstance::new().unwrap();
+                //#[cfg(target_os = "macos")]
+                //sleep(Duration::from_secs(1));
+                kb.has_shift(true);
+                kb.add_keys(&[KeySPACE]);
+                kb.launching();
             },
             &[176,16,65] => {
               println!("previous");
+                let mut kb = KeyBondingInstance::new().unwrap();
+                kb.has_shift(true);
+                kb.add_keys(&[KeyBACKSPACE]);
+                kb.launching();
             },
             _ => {
 
