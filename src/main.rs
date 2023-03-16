@@ -1,7 +1,7 @@
 extern crate keybd_event;
 extern crate midir;
 
-use keybd_event::KeyboardKey::{KeySPACE, KeyBACKSPACE};
+use keybd_event::KeyboardKey::KeySPACE;
 use keybd_event::KeyBondingInstance;
 use std::io::{stdin, stdout, Write};
 use std::error::Error;
@@ -75,13 +75,14 @@ fn run() -> Result<(), Box<dyn Error>> {
                 kb.add_keys(&[KeySPACE]);
                 kb.launching();
             },
+            /*
             &[176,16,65] => {
               println!("previous");
                 let mut kb = KeyBondingInstance::new().unwrap();
                 kb.has_shift(true);
-                kb.add_keys(&[KeyBACKSPACE]);
+                kb.add_keys(&[KeyLEFT]);
                 kb.launching();
-            },
+            },*/
             _ => {
 
             }
