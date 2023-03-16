@@ -1,16 +1,10 @@
 extern crate keybd_event;
 extern crate midir;
-//#[cfg(target_os = "macos")]
-//use std::thread::sleep;
-//#[cfg(target_os = "macos")]
-//use std::time::Duration;
 
 use keybd_event::KeyboardKey::{KeySPACE, KeyBACKSPACE};
 use keybd_event::KeyBondingInstance;
-
 use std::io::{stdin, stdout, Write};
 use std::error::Error;
-
 use midir::MidiInput;
 
 /// String to look for when enumerating the MIDI devices
@@ -77,8 +71,6 @@ fn run() -> Result<(), Box<dyn Error>> {
             &[176,16,1] => {
                 println!("next");
                 let mut kb = KeyBondingInstance::new().unwrap();
-                //#[cfg(target_os = "macos")]
-                //sleep(Duration::from_secs(1));
                 kb.has_shift(true);
                 kb.add_keys(&[KeySPACE]);
                 kb.launching();
