@@ -67,8 +67,8 @@ fn run() -> Result<(), Box<dyn Error>> {
     // _conn_in needs to be a named parameter, because it needs to be kept alive until the end of the scope
     let _conn_in = midi_input.connect(in_port, "midir-read-input", move |stamp, message, _| {
         println!("{}: {:?} (len = {})", stamp, message, message.len());
-        match &message {
-            &[176,16,1] => {
+        match (&message[0], &message[2]) {
+            (176,1) => {
                 println!("next");
                 let mut kb = KeyBondingInstance::new().unwrap();
                 kb.has_shift(true);
